@@ -1,0 +1,27 @@
+<html>
+<head>
+
+<style>
+#canvas {
+position: absolute;
+background: #000;
+}
+body {
+margin: 0; padding: 0;
+background-color: #888;
+}
+</style>
+</head>
+<body>
+<canvas width=window.innerWidth  height=window.innerHeight id="canvas"></canvas>
+</body>
+
+
+<script>
+
+
+</script>
+
+
+
+</html>
