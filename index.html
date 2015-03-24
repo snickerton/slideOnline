@@ -1,35 +1,106 @@
 <html>
 <head>
 
-<style>
-#canvas {
-position: absolute;
-background: #000;
-}
-body {
-margin: 0; padding: 0;
-background-color: #888;
-}
-</style>
+	<style>
+	@font-face { 
+		font-family: Handwritten; src: url('This Is Me.ttf'); 
+
+	} 
+	@font-face { 
+		font-family: Slide; src: url('Sweetly Broken.ttf'); 
+
+	} 
+					     
+
+
+	#canvas {
+		position: absolute;
+	}
+	body {
+		margin: 0; padding: 0;
+		background-color: #888;
+	}
+	</style>
 </head>
 <body>
-<canvas width=window.innerWidth  height=window.innerHeight id="canvas"></canvas>
+	<canvas width=window.innerWidth  height=window.innerHeight id="canvas"></canvas>
 </body>
 
 
 <script>
-var canvas, ctx, cWidth, cHeight;
+var canvas, ctx, cWidth, cHeight, txtColor, bgColor;
+
 window.onload=function(){
-canvas = document.getElementById("canvas");
-ctx = canvas.getContext("2d");
-cWidth = canvas.width;
-cHeight = canvas.height;
-showLS();
-game();
+	canvas = document.getElementById("canvas");
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+	ctx = canvas.getContext("2d");
+	cWidth = canvas.width;
+	cHeight = canvas.height;
+
+	txtColor = "#8BBEF0";
+	bgColor = "#2F79C3";
+
+	game();
 };
 
 function game() {
+	var FPS, score;
+	FPS = 60;
+	score = 0;
 
+	key = {};
+	document.body.addEventListener('keydown', function(event) {
+		return key[event.keyCode] = true;
+	});
+	document.body.addEventListener('keyup', function(event) {
+		return key[event.keyCode] = false;
+	});
+
+	setInterval(function(){
+		drawBgandText(score);
+
+		ctx.fillStyle = txtColor;
+		ctx.fillRect(cWidth/2-45,cHeight/2-45,70, 70);
+		ctx.fillStyle = txtColor;
+
+		//UP
+		if(key[87]){
+
+		}
+		//LEFT
+		if(key[65]){
+
+		}
+		//RIGHT
+		if(key[68]){
+
+		}
+		//DOWN
+		if(key[83]){
+
+		}
+
+	}, 1000/FPS);
+}
+
+function drawBgandText(score){
+
+	    ctx.fillStyle = bgColor;
+		ctx.fillRect(0,0,cWidth, cHeight);
+		ctx.fillStyle = txtColor;
+
+		ctx.font = "18pt Handwritten";
+		var txt = "A simple reaction game made by Tony Zhu";
+		ctx.fillText(txt, cWidth/2-ctx.measureText(txt).width/2-7, 120);
+
+		ctx.font = "24pt Handwritten";
+		txt = "Score: "+score;
+		ctx.fillText(txt, cWidth-ctx.measureText(txt).width-20, 40);
+		
+		ctx.font = "45pt Slide";
+		txt = "Slide";
+		ctx.fillText(txt, cWidth/2-ctx.measureText(txt).width/2-14, 67);
 }
 
 </script>
