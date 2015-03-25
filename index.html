@@ -264,6 +264,10 @@ var startScrn= setInterval(function(){
 	ctx.fillText(txt, cWidth/2-ctx.measureText(txt).width/2-7, 120);
 	
 	ctx.font = "18pt Handwritten";
+	var txt = "WASD to move tiles, -5 points for every black tile, -2 for incorrect match.";
+	ctx.fillText(txt, cWidth/2-ctx.measureText(txt).width/2-7, 250);
+	
+	ctx.font = "18pt Handwritten";
 	var txt = "Press any key to start.";
 	ctx.fillText(txt, cWidth/2-ctx.measureText(txt).width/2-7, 350);
 
