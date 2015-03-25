@@ -144,9 +144,10 @@ gameLoop =	setInterval(function(){
 			currTile.col = "rgb(0,0,0)";
 			currTile.vY = -5;
 			currTile.vX = 5;
-
+			drawTiles();
 			isCurr = false;
-			endScreen();
+			setTimeout(endScreen(),5000);
+			startScreen();
 		}
 
 		//Check for if a tile hit a goal
@@ -201,6 +202,7 @@ gameLoop =	setInterval(function(){
 
 function endScreen(){
 	clearInterval(gameLoop);
+	gamenotStarted = true;
 
 	
 	setInterval(function(){
