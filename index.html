@@ -143,7 +143,7 @@ function game() {
 		if((loopCnt-crTime)/FPS >= tLimit){
 			currTile.col = "rgb(0,0,0)";
 			currTile.vY = -5;
-			currTile.xY = 5;
+			currTile.vX = 5;
 
 			isCurr = false;
 		}
@@ -248,8 +248,8 @@ function drawTiles(){
 		ctx.fillRect(tiles[i].x, tiles[i].y, tSize, tSize);
 
 		ctx.strokeStyle = "#000";
-    	ctx.lineWidth   = 1.5;
-    	ctx.strokeRect(tiles[i].x, tiles[i].y, tSize, tSize);
+    		ctx.lineWidth = 1.5;
+    		ctx.strokeRect(tiles[i].x, tiles[i].y, tSize, tSize);
 	}
 
 
