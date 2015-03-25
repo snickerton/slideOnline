@@ -199,6 +199,11 @@ function game() {
 }
 
 function startScreen(){
+	
+		document.body.addEventListener('keydown', function(e) {
+			clearInterval(startScrn);
+			game();
+		});
 var startScrn= setInterval(function(){
 	
 	ctx.fillStyle = bgColor;
@@ -221,10 +226,7 @@ var startScrn= setInterval(function(){
 	txt = "Slide";
 	ctx.fillText(txt, cWidth/2-ctx.measureText(txt).width/2-12, 67);
 	
-		document.body.addEventListener('keydown', function(e) {
-			clearInterval(startScrn);
-			game();
-		});
+	
 		
 }, 1000/30);
 }
