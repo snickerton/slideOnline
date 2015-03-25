@@ -255,16 +255,13 @@ var startScrn= setInterval(function(){
 	ctx.fillRect(0,0,cWidth, cHeight);
 	ctx.fillStyle = txtColor;
 
-	ctx.font = "16pt Handwritten";
-	var txt = "Instructions: Use the WASD keys to slide and match the tiles";
-	ctx.fillText(txt, 10, 30);
 
 	ctx.font = "18pt Handwritten";
 	var txt = "A simple reaction game made by Tony Zhu (not finished)";
 	ctx.fillText(txt, cWidth/2-ctx.measureText(txt).width/2-7, 120);
 	
-	ctx.font = "18pt Handwritten";
-	var txt = "WASD to move tiles, -5 points for every black tile, -2 for incorrect match.";
+	ctx.font = "20pt Handwritten";
+	var txt = "Instructions: WASD to move tiles, -5 points for every black tile, -2 for incorrect match.";
 	ctx.fillText(txt, cWidth/2-ctx.measureText(txt).width/2-7, 250);
 	
 	ctx.font = "25pt Handwritten";
