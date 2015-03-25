@@ -141,7 +141,7 @@ gameLoop =	setInterval(function(){
 	
 	//check if tile time is greater than or equal to the duration
 		if((loopCnt-crTime)/FPS >= tLimit){
-			currTile.col = "rgb(0,0,0)";
+			currTile.col = "rgba(0,0,0, 200)";
 			currTile.vY = -5;
 			currTile.vX = 5;
 		//	drawTiles();
