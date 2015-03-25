@@ -108,7 +108,7 @@ function game() {
 		}
 		
 		//check if tile time is greater than or equal to the duration
-		if((loopCnt-crTime)/40 > tLimit-1){
+		if((loopCnt-crTime)/40 >= tLimit){
 			currTile.col = "#000";
 			currTile.vY = -5;
 			currTile.xY = -5;
