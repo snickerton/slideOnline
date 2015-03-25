@@ -202,9 +202,14 @@ function startScreen(){
 	if(gamenotStarted){
 		document.body.addEventListener('keydown', function(e) {
 			clearInterval(startScrn);
+			gamenotStarted = false;
+				if(gamenotStarted){
+
 			game();
+				}
+			console.log("game ran");
+
 		});
-		gamenotStarted = false;
 	}
 var startScrn= setInterval(function(){
 	
