@@ -147,7 +147,8 @@ gameLoop =	setInterval(function(){
 			drawTiles();
 			isCurr = false;
 			setTimeout(endScreen(),5000);
-			startScreen();
+			setTimeout(startScreen(),5000);
+
 		}
 
 		//Check for if a tile hit a goal
