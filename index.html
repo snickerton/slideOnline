@@ -106,7 +106,13 @@ function game() {
 
 		//can't instantly send off the new one, need a buffer/cd
 		//if the time since last key press has been more than at least .5 of a second
+<<<<<<< Updated upstream
 document.body.addEventListener('keydown', function(e) {
+=======
+	//if((loopCnt-kPT)/40>.3){
+		//UP
+	document.body.addEventListener('keydown', function(e) {
+>>>>>>> Stashed changes
 
 		if(e.keyCode == 87){
 			currTile.vY = -3;
@@ -132,6 +138,10 @@ document.body.addEventListener('keydown', function(e) {
 			isCurr = false;
 		}
 	});
+<<<<<<< Updated upstream
+=======
+	
+>>>>>>> Stashed changes
 		//Check for if a tile hit a goal
 		//Starts at 4 because first 4 are top right bot left
 		for (i = 4; i < tiles.length; i++) {
