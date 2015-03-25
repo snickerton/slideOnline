@@ -145,7 +145,6 @@ gameLoop =	setInterval(function(){
 			//currTile.vY = -5;
 			//currTile.vX = 5;
 			drawTiles();
-			pause(5000);
 			isCurr = false;
 			endScreen();
 		//	startScreen();
@@ -205,7 +204,7 @@ gameLoop =	setInterval(function(){
 function endScreen(){
 	clearInterval(gameLoop);
 	gamenotStarted = true;
-
+	pause(5000);
 	
 endLoop =	setInterval(function(){
 	
