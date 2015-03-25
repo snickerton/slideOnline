@@ -33,7 +33,7 @@ var canvas, ctx, cWidth, cHeight, txtColor, bgColor, rCol, gCol, oCol, bCol;
 
 //cTime = time current tile was created
 //tLimit = time given to send off current
-var FPS, score, isCurr, currTile, tSize, tiles, tL, cX, cY, offset, loopCnt, crTime, tLimit, gameLoop;
+var FPS, score, isCurr, currTile, tSize, tiles, tL, cX, cY, offset, loopCnt, crTime, tLimit, gameLoop, endLoop;
 FPS = 40;
 score = 0;
 isCurr = false;
@@ -145,9 +145,10 @@ gameLoop =	setInterval(function(){
 			//currTile.vY = -5;
 			//currTile.vX = 5;
 			drawTiles();
+			pause(5000);
 			isCurr = false;
-			window.setTimeout(endScreen(),5000);
-			window.setTimeout(startScreen(),5000);
+			endScreen();
+		//	startScreen();
 
 		}
 
@@ -206,7 +207,7 @@ function endScreen(){
 	gamenotStarted = true;
 
 	
-	setInterval(function(){
+endLoop =	setInterval(function(){
 	
 	ctx.fillStyle = bgColor;
 	ctx.fillRect(0,0,cWidth, cHeight);
@@ -347,7 +348,14 @@ function drawBgandText(score){
 	ctx.fillText(txt, cWidth/2-ctx.measureText(txt).width/2-12, 67);
 }
 
+function pause(millis) 
+{
+var date = new Date();
+var curDate = null;
 
+do { curDate = new Date(); } 
+while(curDate-date < millis);
+} 
 
 </script>
 
