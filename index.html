@@ -68,13 +68,6 @@ window.onload=function(){
 
 function game() {
 
-	key = {};
-	document.body.addEventListener('keydown', function(event) {
-		return key[event.keyCode] = true;
-	});
-	document.body.addEventListener('keyup', function(event) {
-		return key[event.keyCode] = false;
-	});
 
 	var top, right, bot, left;
 
@@ -113,33 +106,32 @@ function game() {
 
 		//can't instantly send off the new one, need a buffer/cd
 		//if the time since last key press has been more than at least .5 of a second
-	if((loopCnt-kPT)/40>.3){
-		//UP
-		if(key[87]){
+document.body.addEventListener('keydown', function(e) {
+
+		if(e.keyCode == 87){
 			currTile.vY = -3;
 			kPT = loopCnt;
 			isCurr = false;
 		}
 		//LEFT
-		if(key[65]){
+		if(e.keyCode ==65){
 			currTile.vX = -3;
 			kPT = loopCnt;
 			isCurr = false;
 		}
 		//RIGHT
-		if(key[68]){
+		if(e.keyCode ==68){
 			currTile.vX = 3;
 			kPT = loopCnt;
 			isCurr = false;
 		}
 		//DOWN
-		if(key[83]){
+		if(e.keyCode ==83){
 			currTile.vY = 3;
 			kPT = loopCnt;
 			isCurr = false;
 		}
-	}
-
+	});
 		//Check for if a tile hit a goal
 		//Starts at 4 because first 4 are top right bot left
 		for (i = 4; i < tiles.length; i++) {
