@@ -247,6 +247,10 @@ function drawBgandText(score){
 	ctx.fillRect(0,0,cWidth, cHeight);
 	ctx.fillStyle = txtColor;
 
+	ctx.font = "16pt Handwritten";
+	var txt = "Use the WASD keys to slide and match the tiles";
+	ctx.fillText(txt, cWidth/2-ctx.measureText(txt).width/2-7, 170);
+
 	ctx.font = "18pt Handwritten";
 	var txt = "A simple reaction game made by Tony Zhu";
 	ctx.fillText(txt, cWidth/2-ctx.measureText(txt).width/2-7, 120);
