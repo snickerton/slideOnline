@@ -33,7 +33,7 @@ var canvas, ctx, cWidth, cHeight, txtColor, bgColor, rCol, gCol, oCol, bCol;
 
 //cTime = time current tile was created
 //tLimit = time given to send off current
-var FPS, score, isCurr, currTile, tSize, tiles, tL, cX, cY, offset, loopCnt, crTime, tLimit;
+var FPS, score, isCurr, currTile, tSize, tiles, tL, cX, cY, offset, loopCnt, crTime, tLimit, gameLoop;
 FPS = 40;
 score = 0;
 isCurr = false;
@@ -91,7 +91,7 @@ function game() {
 	tiles.push(left);
 
 
-	setInterval(function(){
+gameLoop =	setInterval(function(){
 		drawBgandText(score);
 
 		//draw center tile
@@ -200,6 +200,9 @@ function game() {
 }
 
 function endScreen(){
+	clearInterval(gameLoop);
+
+	
 	setInterval(function(){
 	
 	ctx.fillStyle = bgColor;
