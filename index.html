@@ -10,7 +10,7 @@
 		font-family: Slide; src: url('Sweetly Broken.ttf'); 
 
 	} 
-					     
+
 
 
 	#canvas {
@@ -28,15 +28,37 @@
 
 
 <script>
-var canvas, ctx, cWidth, cHeight, txtColor, bgColor;
+var canvas, ctx, cWidth, cHeight, txtColor, bgColor, rCol, gCol, oCol, bCol;
+
+var FPS, score, isCurr, currTile, tSize, tiles, tL, cX, cY, offset, loopCnt;
+FPS = 40;
+score = 0;
+isCurr = false;
+tSize = 50;
+tiles = [];
+loopCnt = 0; 
+
+rCol= "#F75C5C";
+gCol= "#28EB01";
+oCol= "#FF8000";
+bCol= "#976500";
+
+
+
+
 
 window.onload=function(){
+
 	canvas = document.getElementById("canvas");
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
 	ctx = canvas.getContext("2d");
 	cWidth = canvas.width;
 	cHeight = canvas.height;
+	offset = -70;
+	tL = ((cWidth/2-tSize/2)-(cWidth/4-tSize/2))-100;
+	cX = cWidth/2-tSize/2;
+	cY = cHeight/2-offset-tSize/2;
 
 	txtColor = "#8BBEF0";
 	bgColor = "#2F79C3";
@@ -45,9 +67,6 @@ window.onload=function(){
 };
 
 function game() {
-	var FPS, score;
-	FPS = 60;
-	score = 0;
 
 	key = {};
 	document.body.addEventListener('keydown', function(event) {
@@ -57,51 +76,191 @@ function game() {
 		return key[event.keyCode] = false;
 	});
 
+	var top, right, bot, left;
+
+	top = new Tile(cX,cY-tL, 0);
+
+	right = new Tile(cX+tL,cY,1);
+
+	bot = new Tile(cX,cY+tL,2);
+
+	left = new Tile(cX-tL,cY,3);
+
+
+	tiles.push(top);
+	tiles.push(right);
+	tiles.push(bot);
+	tiles.push(left);
+
+		//keyPressedTime
+		var kPT = loopCnt;
+
 	setInterval(function(){
 		drawBgandText(score);
 
+		//draw center tile
 		ctx.fillStyle = txtColor;
-		ctx.fillRect(cWidth/2-45,cHeight/2-45,70, 70);
-		ctx.fillStyle = txtColor;
+		ctx.fillRect(cX,cY,tSize, tSize);
 
+		drawTiles();
+
+
+		if(!isCurr){
+			currTile = new Tile(cWidth/2-tSize/2, cHeight/2-offset-tSize/2, Math.floor(Math.random()*4));
+			tiles.push(currTile);//add new tile at center
+			isCurr = true;
+		}
+
+		//can't instantly send off the new one, need a buffer/cd
+		//if the time since last key press has been more than at least .5 of a second
+	if((loopCnt-kPT)/40>.3){
 		//UP
 		if(key[87]){
-
+			currTile.vY = -3;
+			kPT = loopCnt;
+			isCurr = false;
 		}
 		//LEFT
 		if(key[65]){
-
+			currTile.vX = -3;
+			kPT = loopCnt;
+			isCurr = false;
 		}
 		//RIGHT
 		if(key[68]){
-
+			currTile.vX = 3;
+			kPT = loopCnt;
+			isCurr = false;
 		}
 		//DOWN
 		if(key[83]){
+			currTile.vY = 3;
+			kPT = loopCnt;
+			isCurr = false;
+		}
+	}
+
+		//Check for if a tile hit a goal
+		//Starts at 4 because first 4 are top right bot left
+		for (i = 4; i < tiles.length; i++) {
+
+			//IF INSIDE A TILE AND COLOR MATCHES
+			if(inside(tiles[i], top)&&tiles[i].col == top.col){
+				tiles.splice(i, 1);//removes the thing at index i
+				score++;//WHOOOOO
+			}
+			if(inside(tiles[i], bot)&&tiles[i].col == bot.col){
+				tiles.splice(i, 1);//removes the thing at index i
+					score++;//WHOOOOO
+				}
+				if(inside(tiles[i], right)&&tiles[i].col == right.col){
+				tiles.splice(i, 1);//removes the thing at index i
+				score++;//WHOOOOO
+			}
+			if(inside(tiles[i], left)&&tiles[i].col == left.col){
+				tiles.splice(i, 1);//removes the thing at index i
+				score++;//WHOOOOO
+			}
+			
+
+			//IF INSIDE A TILE AND COLOR DOES NOT MATCH
+			if(inside(tiles[i], top)&&tiles[i].col != top.col){
+				tiles.splice(i, 1);//removes the thing at index i
+				score--;//oh shit
+			}
+			if(inside(tiles[i], bot)&&tiles[i].col != bot.col){
+				tiles.splice(i, 1);//removes the thing at index i
+				score--;//oh shit
+			}
+			if(inside(tiles[i], right)&&tiles[i].col != right.col){
+				tiles.splice(i, 1);//removes the thing at index i
+				score--;//oh shit
+			}
+			if(inside(tiles[i], left)&&tiles[i].col != left.col){
+				tiles.splice(i, 1);//removes the thing at index i
+				score--;//oh shit
+			}
 
 		}
+
+
+
+		loopCnt++;
 
 	}, 1000/FPS);
 }
 
+
+
+function drawTiles(){
+	for (i = tiles.length-1; i > -1; i--) {
+		tiles[i].x += tiles[i].vX;
+		tiles[i].y += tiles[i].vY;
+
+		ctx.fillStyle = tiles[i].col;
+		ctx.fillRect(tiles[i].x, tiles[i].y, tSize, tSize);
+
+		ctx.strokeStyle = "#000";
+    	ctx.lineWidth   = 1;
+    	ctx.strokeRect(tiles[i].x, tiles[i].y, tSize, tSize);
+	}
+
+
+}
+
+function Tile(x, y, color){
+
+	this.x = x;
+	this.y = y;
+
+	this.vX = 0;
+	this.vY = 0;
+
+	if(color == 0){
+		this.col = rCol;
+	}
+
+	if(color == 1){
+		this.col = bCol;
+	}
+
+	if(color == 2){
+		this.col = gCol;
+	}
+
+	if(color == 3){
+		this.col = oCol;
+	}
+
+}
+
+function inside(val, tile){
+	return  (val.x+tSize/2)<(tile.x+tSize)&&
+	(val.x+tSize/2)>(tile.x)&&
+	(val.y+tSize/2)<(tile.y+tSize)&&
+	(val.y+tSize/2)>(tile.y);
+}
+
 function drawBgandText(score){
 
-	    ctx.fillStyle = bgColor;
-		ctx.fillRect(0,0,cWidth, cHeight);
-		ctx.fillStyle = txtColor;
+	ctx.fillStyle = bgColor;
+	ctx.fillRect(0,0,cWidth, cHeight);
+	ctx.fillStyle = txtColor;
 
-		ctx.font = "18pt Handwritten";
-		var txt = "A simple reaction game made by Tony Zhu";
-		ctx.fillText(txt, cWidth/2-ctx.measureText(txt).width/2-7, 120);
+	ctx.font = "18pt Handwritten";
+	var txt = "A simple reaction game made by Tony Zhu";
+	ctx.fillText(txt, cWidth/2-ctx.measureText(txt).width/2-7, 120);
 
-		ctx.font = "24pt Handwritten";
-		txt = "Score: "+score;
-		ctx.fillText(txt, cWidth-ctx.measureText(txt).width-20, 40);
-		
-		ctx.font = "45pt Slide";
-		txt = "Slide";
-		ctx.fillText(txt, cWidth/2-ctx.measureText(txt).width/2-14, 67);
+	ctx.font = "24pt Handwritten";
+	txt = "Score: "+score;
+	ctx.fillText(txt, cWidth-ctx.measureText(txt).width-20, 40);
+
+	ctx.font = "45pt Slide";
+	txt = "Slide";
+	ctx.fillText(txt, cWidth/2-ctx.measureText(txt).width/2-12, 67);
 }
+
+
 
 </script>
 
