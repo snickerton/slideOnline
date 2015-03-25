@@ -145,6 +145,7 @@ gameLoop =	setInterval(function(){
 			currTile.col = "rgba(0,0,0, .5)";
 			currTile.vY = -5;
 			currTile.vX = 5;
+			score-=5;//oh shit
 		//	drawTiles();
 			isCurr = false;
 		//	endScreen();
@@ -178,19 +179,19 @@ gameLoop =	setInterval(function(){
 			//IF INSIDE A TILE AND COLOR DOES NOT MATCH
 			if(inside(tiles[i], top)&&tiles[i].col != top.col){
 				tiles.splice(i, 1);//removes the thing at index i
-				score -= 5;//oh shit
+				score -= 2;//oh shit
 			}
 			if(inside(tiles[i], bot)&&tiles[i].col != bot.col){
 				tiles.splice(i, 1);//removes the thing at index i
-				score -= 5;//oh shit
+				score -= 2;//oh shit
 			}
 			if(inside(tiles[i], right)&&tiles[i].col != right.col){
 				tiles.splice(i, 1);//removes the thing at index i
-				score -=5;//oh shit
+				score -=2;//oh shit
 			}
 			if(inside(tiles[i], left)&&tiles[i].col != left.col){
 				tiles.splice(i, 1);//removes the thing at index i
-				score-=5;//oh shit
+				score-=2;//oh shit
 			}
 
 		}
