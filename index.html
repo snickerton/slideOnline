@@ -138,10 +138,13 @@ function game() {
 		}
 	});
 
-
+	//slowly turn current tile black
+	var howBlack = 255-((loopCnt-crTime)/(FPS*tLimit))*255;
+	currTile.col = "rgb("+howBlack +","+ howBlack+","+howBlack+")";
+	
 	//check if tile time is greater than or equal to the duration
-		if((loopCnt-crTime)/40 >= tLimit){
-			currTile.col = "#000";
+		if((loopCnt-crTime)/FPS >= tLimit){
+			currTile.col = "rgb(0,0,0)";
 			currTile.vY = -5;
 			currTile.xY = 5;
 
