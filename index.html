@@ -40,7 +40,7 @@ isCurr = false;
 tSize = 50;
 tiles = [];
 loopCnt = 0; 
-tLimit = 1.5;//seconds
+tLimit = 1;//seconds
 
 rCol= "#F75C5C";
 gCol= "#28EB01";
@@ -139,6 +139,7 @@ gameLoop =	setInterval(function(){
 	});
 
 	
+	currTile
 	//check if tile time is greater than or equal to the duration
 		if((loopCnt-crTime)/FPS >= tLimit){
 			currTile.col = "rgba(0,0,0, .5)";
