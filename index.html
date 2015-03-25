@@ -30,13 +30,17 @@
 <script>
 var canvas, ctx, cWidth, cHeight, txtColor, bgColor, rCol, gCol, oCol, bCol;
 
-var FPS, score, isCurr, currTile, tSize, tiles, tL, cX, cY, offset, loopCnt;
+
+//cTime = time current tile was created
+//tLimit = time given to send off current
+var FPS, score, isCurr, currTile, tSize, tiles, tL, cX, cY, offset, loopCnt, crTime, tLimit;
 FPS = 40;
 score = 0;
 isCurr = false;
 tSize = 50;
 tiles = [];
 loopCnt = 0; 
+tLimit = 1.5;//seconds
 
 rCol= "#F75C5C";
 gCol= "#28EB01";
@@ -85,8 +89,6 @@ function game() {
 	tiles.push(bot);
 	tiles.push(left);
 
-		//keyPressedTime
-		var kPT = loopCnt;
 
 	setInterval(function(){
 		drawBgandText(score);
@@ -101,7 +103,14 @@ function game() {
 		if(!isCurr){
 			currTile = new Tile(cWidth/2-tSize/2, cHeight/2-offset-tSize/2, Math.floor(Math.random()*4));
 			tiles.push(currTile);//add new tile at center
+			crTime = loopCnt;
 			isCurr = true;
+		}
+		
+		//check if tile time is greater than or equal to the duration
+		if((loopCnt-crTime)/40 > tLimit-1){
+			currTile.col = "#000";
+			isCurr = false;
 		}
 
 		//can't instantly send off the new one, need a buffer/cd
@@ -112,26 +121,22 @@ function game() {
 	document.body.addEventListener('keydown', function(e) {
 
 		if(e.keyCode == 87){
-			currTile.vY = -3;
-			kPT = loopCnt;
+			currTile.vY = -5;
 			isCurr = false;
 		}
 		//LEFT
 		if(e.keyCode ==65){
-			currTile.vX = -3;
-			kPT = loopCnt;
+			currTile.vX = -5;
 			isCurr = false;
 		}
 		//RIGHT
 		if(e.keyCode ==68){
-			currTile.vX = 3;
-			kPT = loopCnt;
+			currTile.vX = 5;
 			isCurr = false;
 		}
 		//DOWN
 		if(e.keyCode ==83){
-			currTile.vY = 3;
-			kPT = loopCnt;
+			currTile.vY = 5;
 			isCurr = false;
 		}
 	});
