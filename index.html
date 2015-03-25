@@ -47,7 +47,7 @@ gCol= "#28EB01";
 oCol= "#FF8000";
 bCol= "#976500";
 
-
+var gamenotStarted = true;
 
 
 
@@ -199,11 +199,13 @@ function game() {
 }
 
 function startScreen(){
-	
+	if(gamenotStarted){
 		document.body.addEventListener('keydown', function(e) {
 			clearInterval(startScrn);
 			game();
 		});
+		gamenotStarted = false;
+	}
 var startScrn= setInterval(function(){
 	
 	ctx.fillStyle = bgColor;
